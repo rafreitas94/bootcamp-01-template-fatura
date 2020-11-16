@@ -5,17 +5,10 @@ import javax.validation.constraints.NotBlank;
 public class CartaoResponse {
 
     @NotBlank
-    private final String idCartao;
-    @NotBlank
     private final String email;
 
-    public CartaoResponse(@NotBlank String idCartao, @NotBlank String email) {
-        this.idCartao = idCartao;
+    public CartaoResponse(@NotBlank String email) {
         this.email = email;
-    }
-
-    public String getIdCartao() {
-        return idCartao;
     }
 
     public String getEmail() {
@@ -23,7 +16,6 @@ public class CartaoResponse {
     }
 
     public CartaoResponse(Cartao cartao) {
-        this.idCartao = cartao.getIdCartao();
         this.email = cartao.getEmail();
     }
 }

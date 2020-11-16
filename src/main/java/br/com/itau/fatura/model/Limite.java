@@ -12,15 +12,15 @@ public class Limite {
     private BigDecimal limite;
     @NotNull
     @Positive
-    private BigDecimal saldoAtual;
+    private BigDecimal valorTotalUtilizado;
     @NotNull
     private BigDecimal disponivel;
     @NotNull
     private List<Fatura> compras;
 
-    public Limite(BigDecimal limite, BigDecimal saldoAtual, List<Fatura> compras) {
+    public Limite(BigDecimal limite, BigDecimal valorTotalUtilizado, List<Fatura> compras) {
         this.limite = limite;
-        this.saldoAtual = saldoAtual;
+        this.valorTotalUtilizado = valorTotalUtilizado;
         this.compras = compras;
     }
 
@@ -32,12 +32,12 @@ public class Limite {
         this.limite = limite;
     }
 
-    public BigDecimal getSaldoAtual() {
-        return saldoAtual;
+    public BigDecimal getValorTotalUtilizado() {
+        return valorTotalUtilizado;
     }
 
-    public void setSaldoAtual(BigDecimal saldoAtual) {
-        this.saldoAtual = saldoAtual;
+    public void setValorTotalUtilizado(BigDecimal valorTotalUtilizado) {
+        this.valorTotalUtilizado = valorTotalUtilizado;
     }
 
     public BigDecimal getDisponivel() {
@@ -57,6 +57,6 @@ public class Limite {
     }
 
     public void calculaLimiteDisponivel() {
-        this.disponivel = this.limite.subtract(this.saldoAtual);
+        this.disponivel = this.limite.subtract(this.valorTotalUtilizado);
     }
 }

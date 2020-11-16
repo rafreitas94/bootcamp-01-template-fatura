@@ -8,13 +8,10 @@ public class EstabelecimentoResponse {
     private final String nome;
     @NotBlank
     private final String cidade;
-    @NotBlank
-    private final String endereco;
 
-    public EstabelecimentoResponse(@NotBlank String nome, @NotBlank String cidade, @NotBlank String endereco) {
+    public EstabelecimentoResponse(@NotBlank String nome, @NotBlank String cidade) {
         this.nome = nome;
         this.cidade = cidade;
-        this.endereco = endereco;
     }
 
     public String getNome() {
@@ -25,13 +22,8 @@ public class EstabelecimentoResponse {
         return cidade;
     }
 
-    public String getEndereco() {
-        return endereco;
-    }
-
     public EstabelecimentoResponse(Estabelecimento estabelecimento) {
         this.nome = estabelecimento.getNome();
         this.cidade = estabelecimento.getCidade();
-        this.endereco = estabelecimento.getEndereco();
     }
 }
