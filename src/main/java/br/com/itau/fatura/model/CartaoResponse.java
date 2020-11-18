@@ -11,11 +11,11 @@ public class CartaoResponse {
         this.email = email;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
     public CartaoResponse(Cartao cartao) {
         this.email = cartao.getEmail();
+    }
+
+    public String getEmail() {
+        return email;
     }
 }

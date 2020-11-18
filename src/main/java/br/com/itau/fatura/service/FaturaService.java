@@ -25,13 +25,14 @@ public class FaturaService {
         TypedQuery<Fatura> query = entityManager.createQuery("select u from " + Fatura.class.getName() + " u ", Fatura.class);
         List<Fatura> faturas = query.getResultList();
 
-        final Fatura faturaEncontrada = new Fatura(new ArrayList<>());
+        final Fatura faturaEncontrada = new Fatura(new ArrayList<>(), new ArrayList<>());
 
         faturas.forEach(fatura -> { //1
             if (!fatura.getCompras().isEmpty()) { //1
-                if (fatura.numeroDoCartao().equals(numeroCartao)){ //1
+                if (fatura.numeroDoCartao().equals(numeroCartao)) { //1
                     faturaEncontrada.setId(fatura.getId());
                     faturaEncontrada.setCompras(fatura.getCompras());
+                    faturaEncontrada.setParcela(fatura.getParcela());
                 }
             }
         });
@@ -40,7 +41,7 @@ public class FaturaService {
     }
 
     public Fatura filtraFaturaPorUltimasCompras(Fatura fatura) {
-        Fatura faturaComFiltroDeCompras = new Fatura(new ArrayList<>());
+        Fatura faturaComFiltroDeCompras = new Fatura(new ArrayList<>(), new ArrayList<>());
 
         if (fatura.quantidadeDeCompras() > 10) { //1
             for (int i = fatura.quantidadeDeCompras(); i > (fatura.quantidadeDeCompras() - 10); i--) { //1

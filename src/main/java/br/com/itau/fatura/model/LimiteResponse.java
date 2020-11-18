@@ -21,6 +21,13 @@ public class LimiteResponse {
         this.comprasResponse = comprasResponse;
     }
 
+    public LimiteResponse(Limite limite) {
+        this.limite = limite.getLimite();
+        this.valorTotalUtilizado = limite.getValorTotalUtilizado();
+        this.disponivel = limite.getDisponivel();
+        this.comprasResponse = limite.getCompras().stream().map(CompraResponse::new).collect(Collectors.toList());
+    }
+
     public BigDecimal getLimite() {
         return limite;
     }
@@ -35,12 +42,5 @@ public class LimiteResponse {
 
     public List<CompraResponse> getComprasResponse() {
         return comprasResponse;
-    }
-
-    public LimiteResponse(Limite limite) {
-        this.limite = limite.getLimite();
-        this.valorTotalUtilizado = limite.getValorTotalUtilizado();
-        this.disponivel = limite.getDisponivel();
-        this.comprasResponse = limite.getCompras().stream().map(CompraResponse::new).collect(Collectors.toList());
     }
 }

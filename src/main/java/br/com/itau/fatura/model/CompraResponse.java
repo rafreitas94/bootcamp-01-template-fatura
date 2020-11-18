@@ -26,6 +26,13 @@ public class CompraResponse {
         this.efetivadaEm = efetivadaEm;
     }
 
+    public CompraResponse(Compra compra) {
+        this.valor = compra.getValor();
+        this.estabelecimento = new EstabelecimentoResponse(compra.getEstabelecimento());
+        this.cartao = new CartaoResponse(compra.getCartao());
+        this.efetivadaEm = compra.getEfetivadaEm();
+    }
+
     public BigDecimal getValor() {
         return valor;
     }
@@ -40,12 +47,5 @@ public class CompraResponse {
 
     public LocalDateTime getEfetivadaEm() {
         return efetivadaEm;
-    }
-
-    public CompraResponse(Compra compra) {
-        this.valor = compra.getValor();
-        this.estabelecimento = new EstabelecimentoResponse(compra.getEstabelecimento());
-        this.cartao = new CartaoResponse(compra.getCartao());
-        this.efetivadaEm = compra.getEfetivadaEm();
     }
 }

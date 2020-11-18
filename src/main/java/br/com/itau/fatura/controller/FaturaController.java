@@ -17,7 +17,7 @@ import javax.validation.constraints.NotBlank;
 public class FaturaController {
 
     private final Logger logger = LoggerFactory.getLogger(FaturaController.class);
-//1
+    //1
     private final FaturaService faturaService;
 
     public FaturaController(FaturaService faturaService) {
@@ -33,7 +33,7 @@ public class FaturaController {
             return ResponseEntity.badRequest().build();
         }
 
-        logger.info("Fatura id={} atrelada ao cartão com final {} encontrado com sucesso!", fatura.getId(), numeroCartao.substring(24));
+        logger.info("Fatura id={} atrelada ao cartão com final {} encontrada com sucesso!", fatura.getId(), numeroCartao.substring(24));
         return ResponseEntity.ok(new FaturaResponse(fatura));
     }
 }

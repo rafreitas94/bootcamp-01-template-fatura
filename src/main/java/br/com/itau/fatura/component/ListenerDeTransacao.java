@@ -15,10 +15,10 @@ import javax.persistence.EntityManager;
 @Component
 public class ListenerDeTransacao {
 
-    private  final Logger logger = LoggerFactory.getLogger(ListenerDeTransacao.class);
+    private final Logger logger = LoggerFactory.getLogger(ListenerDeTransacao.class);
 
     private final EntityManager entityManager;
-//1
+    //1
     private final FaturaService faturaService;
 
     public ListenerDeTransacao(EntityManager entityManager, FaturaService faturaService) {
@@ -42,6 +42,6 @@ public class ListenerDeTransacao {
             entityManager.merge(fatura);
         }
 
-        logger.info("Evento {} da fatura id={} persistido com sucesso!", eventoTransacaoListener.getId(), fatura.getId());
+        logger.info("Evento {} valor={} da fatura id={} persistido com sucesso!", eventoTransacaoListener.getId(), compra.getValor(), fatura.getId());
     }
 }

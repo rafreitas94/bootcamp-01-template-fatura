@@ -1,33 +1,21 @@
 package br.com.itau.fatura.model.solicitacao;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import java.math.BigDecimal;
 
 public class ParcelaResponseClient {
 
     @NotBlank
-    private final String idParcela;
-    @NotNull
-    private final Integer quantidade;
-    @NotNull
-    private final BigDecimal valor;
+    private ResultadoParcelaClient resultado;
 
-    public ParcelaResponseClient(@NotBlank String idParcela, @NotNull Integer quantidade, @NotNull BigDecimal valor) {
-        this.idParcela = idParcela;
-        this.quantidade = quantidade;
-        this.valor = valor;
+    @Deprecated
+    public ParcelaResponseClient() {
     }
 
-    public String getIdParcela() {
-        return idParcela;
+    public ParcelaResponseClient(@NotBlank ResultadoParcelaClient resultado) {
+        this.resultado = resultado;
     }
 
-    public Integer getQuantidade() {
-        return quantidade;
-    }
-
-    public BigDecimal getValor() {
-        return valor;
+    public ResultadoParcelaClient getResultado() {
+        return resultado;
     }
 }

@@ -14,16 +14,16 @@ public class EstabelecimentoResponse {
         this.cidade = cidade;
     }
 
+    public EstabelecimentoResponse(Estabelecimento estabelecimento) {
+        this.nome = estabelecimento.getNome();
+        this.cidade = estabelecimento.getCidade();
+    }
+
     public String getNome() {
         return nome;
     }
 
     public String getCidade() {
         return cidade;
-    }
-
-    public EstabelecimentoResponse(Estabelecimento estabelecimento) {
-        this.nome = estabelecimento.getNome();
-        this.cidade = estabelecimento.getCidade();
     }
 }

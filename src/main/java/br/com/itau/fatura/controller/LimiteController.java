@@ -20,9 +20,9 @@ import java.math.BigDecimal;
 public class LimiteController {
 
     private final Logger logger = LoggerFactory.getLogger(LimiteController.class);
-//1
+    //1
     private final LimiteService limiteService;
-//1
+    //1
     private final FaturaService faturaService;
 
     public LimiteController(LimiteService limiteService, FaturaService faturaService) {
@@ -41,10 +41,10 @@ public class LimiteController {
             return ResponseEntity.badRequest().build();
         }
 
+        BigDecimal valorTotalUtilizado = limiteService.calculaValorTotalUtilizado(fatura.getCompras());
+
         Fatura faturaComFiltro = faturaService.filtraFaturaPorUltimasCompras(fatura);
         logger.info("{} compras filtradas para o cartão com final {}", faturaComFiltro.getCompras().size(), numeroCartao.substring(24));
-
-        BigDecimal valorTotalUtilizado = limiteService.calculaValorTotalUtilizado(faturaComFiltro.getCompras());
 
         Limite limite = new Limite(valorDoLimite, valorTotalUtilizado, faturaComFiltro.getCompras()); //1
         limite.calculaLimiteDisponivel();
