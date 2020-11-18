@@ -44,7 +44,7 @@ public class LimiteController {
         Fatura faturaComFiltro = faturaService.filtraFaturaPorUltimasCompras(fatura);
         logger.info("{} compras filtradas para o cartão com final {}", faturaComFiltro.getCompras().size(), numeroCartao.substring(24));
 
-        BigDecimal valorTotalUtilizado = faturaService.calculaValorTotalUtilizado(faturaComFiltro.getCompras());
+        BigDecimal valorTotalUtilizado = limiteService.calculaValorTotalUtilizado(faturaComFiltro.getCompras());
 
         Limite limite = new Limite(valorDoLimite, valorTotalUtilizado, faturaComFiltro.getCompras()); //1
         limite.calculaLimiteDisponivel();

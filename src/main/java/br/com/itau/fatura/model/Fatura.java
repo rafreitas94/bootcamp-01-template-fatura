@@ -1,6 +1,7 @@
 package br.com.itau.fatura.model;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.util.Assert;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -39,5 +40,18 @@ public class Fatura {
 
     public void setCompras(List<Compra> compras) {
         this.compras = compras;
+    }
+
+    public String numeroDoCartao() {
+        Assert.notEmpty(this.compras, "Não é possível obter o número do cartão pois a lista de compras está vazia");
+        return this.getCompras().get(0).getCartao().getIdCartao();
+    }
+
+    public int quantidadeDeCompras() {
+        return this.compras.size();
+    }
+
+    public void carregaCompra(Compra compra) {
+        this.compras.add(compra);
     }
 }
