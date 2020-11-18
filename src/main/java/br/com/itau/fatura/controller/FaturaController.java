@@ -12,8 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 public class FaturaController {
@@ -27,16 +25,15 @@ public class FaturaController {
     }
 
     @GetMapping("/v1/cartoes/{id}/faturas")
-    public ResponseEntity<List<FaturaResponse>> exibeFatura(@PathVariable("id") @Valid @NotBlank String numeroCartao) { //1
-        List<Fatura> compras = faturaService.buscaFatura(numeroCartao); //1
+    public ResponseEntity<FaturaResponse> exibeFatura(@PathVariable("id") @Valid @NotBlank String numeroCartao) { //1
+        Fatura fatura = faturaService.buscaFatura(numeroCartao); //1
 
-        if (compras == null) { //1
+        if (fatura.getId() == null) { //1
+            logger.error("Fatura não encontrada.");
             return ResponseEntity.badRequest().build();
         }
 
-        List<FaturaResponse> faturaResponse = compras.stream().map(FaturaResponse::new).collect(Collectors.toList()); //1
-
-        logger.info("{} detalhamento(s) de compras para o cartão com final {}", faturaResponse.size(), numeroCartao.substring(24));
-        return ResponseEntity.ok(faturaResponse);
+        logger.info("Fatura id={} atrelada ao cartão com final {} encontrado com sucesso!", fatura.getId(), numeroCartao.substring(24));
+        return ResponseEntity.ok(new FaturaResponse(fatura));
     }
 }

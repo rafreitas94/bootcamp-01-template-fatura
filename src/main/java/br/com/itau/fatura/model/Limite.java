@@ -16,9 +16,9 @@ public class Limite {
     @NotNull
     private BigDecimal disponivel;
     @NotNull
-    private List<Fatura> compras;
+    private List<Compra> compras;
 
-    public Limite(BigDecimal limite, BigDecimal valorTotalUtilizado, List<Fatura> compras) {
+    public Limite(BigDecimal limite, BigDecimal valorTotalUtilizado, List<Compra> compras) {
         this.limite = limite;
         this.valorTotalUtilizado = valorTotalUtilizado;
         this.compras = compras;
@@ -48,11 +48,11 @@ public class Limite {
         this.disponivel = disponivel;
     }
 
-    public List<Fatura> getCompras() {
+    public List<Compra> getCompras() {
         return compras;
     }
 
-    public void setCompras(List<Fatura> compras) {
+    public void setCompras(List<Compra> compras) {
         this.compras = compras;
     }
 

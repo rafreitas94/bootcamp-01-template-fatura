@@ -1,8 +1,8 @@
 package br.com.itau.fatura.model.listener;
 
 import br.com.itau.fatura.model.Cartao;
+import br.com.itau.fatura.model.Compra;
 import br.com.itau.fatura.model.Estabelecimento;
-import br.com.itau.fatura.model.Fatura;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.validation.constraints.NotBlank;
@@ -45,8 +45,8 @@ public class EventoTransacaoListener {
         return efetivadaEm;
     }
 
-    public Fatura toModel() {
-        return new Fatura(this.id, this.valor.setScale(2, RoundingMode.HALF_DOWN),
+    public Compra toModel() {
+        return new Compra(this.id, this.valor.setScale(2, RoundingMode.HALF_DOWN),
                 new Estabelecimento(this.estabelecimentoListener.getNome(), this.estabelecimentoListener.getCidade(), this.estabelecimentoListener.getEndereco()),
                 new Cartao(this.cartaoListener.getId(), this.cartaoListener.getEmail()), this.efetivadaEm);
     }

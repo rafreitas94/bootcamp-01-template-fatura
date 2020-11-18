@@ -12,9 +12,9 @@ public class LimiteResponse {
     private final BigDecimal valorTotalUtilizado;
     private final BigDecimal disponivel;
     @JsonProperty("compras")
-    private final List<FaturaResponse> comprasResponse;
+    private final List<CompraResponse> comprasResponse;
 
-    public LimiteResponse(BigDecimal limite, BigDecimal valorTotalUtilizado, BigDecimal disponivel, List<FaturaResponse> comprasResponse) {
+    public LimiteResponse(BigDecimal limite, BigDecimal valorTotalUtilizado, BigDecimal disponivel, List<CompraResponse> comprasResponse) {
         this.limite = limite;
         this.valorTotalUtilizado = valorTotalUtilizado;
         this.disponivel = disponivel;
@@ -33,7 +33,7 @@ public class LimiteResponse {
         return disponivel;
     }
 
-    public List<FaturaResponse> getComprasResponse() {
+    public List<CompraResponse> getComprasResponse() {
         return comprasResponse;
     }
 
@@ -41,6 +41,6 @@ public class LimiteResponse {
         this.limite = limite.getLimite();
         this.valorTotalUtilizado = limite.getValorTotalUtilizado();
         this.disponivel = limite.getDisponivel();
-        this.comprasResponse = limite.getCompras().stream().map(FaturaResponse::new).collect(Collectors.toList());
+        this.comprasResponse = limite.getCompras().stream().map(CompraResponse::new).collect(Collectors.toList());
     }
 }

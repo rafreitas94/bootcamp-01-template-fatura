@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import java.math.BigDecimal;
-import java.util.List;
 
 @RestController
 public class LimiteController {
@@ -35,18 +34,19 @@ public class LimiteController {
     public ResponseEntity<LimiteResponse> exibeLimite(@PathVariable("id") @Valid @NotBlank String numeroCartao) { //1
         BigDecimal valorDoLimite = limiteService.buscarValorDoLimite(numeroCartao); //1
 
-        List<Fatura> compras = faturaService.buscaFatura(numeroCartao); //1
+        Fatura fatura = faturaService.buscaFatura(numeroCartao); //1
 
-        if (compras == null) { //1
+        if (fatura == null) { //1
+            logger.error("Fatura não encontrada.");
             return ResponseEntity.badRequest().build();
         }
 
-        List<Fatura> listaDeComprasComFiltro = faturaService.filtraFaturaPorUltimasCompras(compras);
-        logger.info("{} compras filtradas para o cartão com final {}", listaDeComprasComFiltro.size(), numeroCartao.substring(24));
+        Fatura faturaComFiltro = faturaService.filtraFaturaPorUltimasCompras(fatura);
+        logger.info("{} compras filtradas para o cartão com final {}", faturaComFiltro.getCompras().size(), numeroCartao.substring(24));
 
-        BigDecimal valorTotalUtilizado = faturaService.calculaValorTotalUtilizado(listaDeComprasComFiltro);
+        BigDecimal valorTotalUtilizado = faturaService.calculaValorTotalUtilizado(faturaComFiltro.getCompras());
 
-        Limite limite = new Limite(valorDoLimite, valorTotalUtilizado, compras); //1
+        Limite limite = new Limite(valorDoLimite, valorTotalUtilizado, faturaComFiltro.getCompras()); //1
         limite.calculaLimiteDisponivel();
 
         logger.info("Limite valorDoLimite={} valorTotalUtilizado={} disponivel={} para o cartão com final {}", limite.getLimite(), limite.getValorTotalUtilizado(), limite.getDisponivel(), numeroCartao.substring(24));

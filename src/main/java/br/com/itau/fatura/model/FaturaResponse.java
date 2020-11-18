@@ -1,51 +1,23 @@
 package br.com.itau.fatura.model;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class FaturaResponse {
 
     @NotNull
-    @Positive
-    private final BigDecimal valor;
-    @NotNull
-    private final EstabelecimentoResponse estabelecimento;
-    @NotNull
-    private final CartaoResponse cartao;
-    @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss")
-    private final LocalDateTime efetivadaEm;
+    private final List<CompraResponse> compras;
 
-    public FaturaResponse(@NotNull @Positive BigDecimal valor, @NotNull EstabelecimentoResponse estabelecimento, @NotNull CartaoResponse cartao, LocalDateTime efetivadaEm) {
-        this.valor = valor;
-        this.estabelecimento = estabelecimento;
-        this.cartao = cartao;
-        this.efetivadaEm = efetivadaEm;
+    public FaturaResponse(@NotNull List<CompraResponse> compras) {
+        this.compras = compras;
     }
 
-    public BigDecimal getValor() {
-        return valor;
+    public List<CompraResponse> getCompras() {
+        return compras;
     }
 
-    public EstabelecimentoResponse getEstabelecimento() {
-        return estabelecimento;
-    }
-
-    public CartaoResponse getCartao() {
-        return cartao;
-    }
-
-    public LocalDateTime getEfetivadaEm() {
-        return efetivadaEm;
-    }
-
-    public FaturaResponse(Fatura compra) {
-        this.valor = compra.getValor();
-        this.estabelecimento = new EstabelecimentoResponse(compra.getEstabelecimento());
-        this.cartao = new CartaoResponse(compra.getCartao());
-        this.efetivadaEm = compra.getEfetivadaEm();
+    public FaturaResponse(Fatura fatura) {
+        this.compras = fatura.getCompras().stream().map(CompraResponse::new).collect(Collectors.toList());
     }
 }
