@@ -4,7 +4,6 @@ import br.com.itau.fatura.client.ParcelaClient;
 import br.com.itau.fatura.model.Fatura;
 import br.com.itau.fatura.model.Parcela;
 import br.com.itau.fatura.model.ParcelaRequest;
-import br.com.itau.fatura.model.ParcelaResponse;
 import br.com.itau.fatura.model.solicitacao.ParcelaResponseClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,7 +26,7 @@ public class ParcelaController {
     private final Logger logger = LoggerFactory.getLogger(ParcelaController.class);
 
     private final EntityManager entityManager;
-
+//1
     private final ParcelaClient parcelaClient;
 
     public ParcelaController(EntityManager entityManager, ParcelaClient parcelaClient) {
@@ -37,13 +36,13 @@ public class ParcelaController {
 
     @PostMapping("/v1/cartoes/{idCartao}/faturas/{idFatura}/parcelas")
     @Transactional
-    public ResponseEntity<ParcelaResponse> criaParcela(@PathVariable("idCartao") @Valid @NotBlank String numeroCartao,
+    public ResponseEntity<?> criaParcela(@PathVariable("idCartao") @Valid @NotBlank String numeroCartao,
                                                        @PathVariable("idFatura") @Valid @NotBlank String numeroFatura,
                                                        @Valid @RequestBody ParcelaRequest parcelaRequest,
-                                                       UriComponentsBuilder builder) { //1 1
+                                                       UriComponentsBuilder builder) { //1
         Parcela parcela = parcelaRequest.toModel(); //1
 
-        Fatura fatura = entityManager.find(Fatura.class, numeroFatura);
+        Fatura fatura = entityManager.find(Fatura.class, numeroFatura); //1
 
         if (fatura == null) { //1
             logger.error("Fatura não encontrada.");
@@ -54,7 +53,7 @@ public class ParcelaController {
             logger.error("Cartão não encontrado.");
             return ResponseEntity.notFound().build();
         }
-
+//1
         ParcelaResponseClient parcelaResponseClient = parcelaClient.notificaParcela(fatura.getId(), parcela, numeroCartao);
         logger.info("Parcela status={} valor={} atrelada a fatura id={} criada com sucesso!", parcelaResponseClient.getResultado(), parcela.getValorParcela(), fatura.getId());
 

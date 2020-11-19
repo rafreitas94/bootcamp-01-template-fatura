@@ -20,6 +20,8 @@ public class Fatura {
     @NotNull
     @OneToMany(cascade = CascadeType.MERGE)
     private List<Parcela> parcela;
+    @OneToOne
+    private Renegociacao renegociacao;
 
     @Deprecated
     public Fatura() {
@@ -54,6 +56,14 @@ public class Fatura {
         this.parcela = parcela;
     }
 
+    public Renegociacao getRenegociacao() {
+        return renegociacao;
+    }
+
+    public void setRenegociacao(Renegociacao renegociacao) {
+        this.renegociacao = renegociacao;
+    }
+
     public String numeroDoCartao() {
         Assert.notEmpty(this.compras, "Não é possível obter o número do cartão pois a lista de compras está vazia");
         return this.getCompras().get(0).getCartao().getIdCartao();
@@ -69,5 +79,23 @@ public class Fatura {
 
     public void carregaParcela(Parcela parcela) {
         this.parcela.add(parcela);
+    }
+
+    public void carregaRenegociacao(Renegociacao renegociacao) {
+        this.renegociacao = renegociacao;
+    }
+
+    public boolean verificaRenegociacaoVazia(String numeroCartao) {
+        if (this.renegociacao != null) { //1
+            return this.numeroDoCartao().equals(numeroCartao);
+        }
+        return false;
+    }
+
+    public boolean verificaComprasVazia(String numeroCartao) {
+        if (!this.compras.isEmpty()) { //1
+            return this.numeroDoCartao().equals(numeroCartao);
+        }
+        return false;
     }
 }

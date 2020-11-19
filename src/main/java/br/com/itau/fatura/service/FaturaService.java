@@ -28,12 +28,14 @@ public class FaturaService {
         final Fatura faturaEncontrada = new Fatura(new ArrayList<>(), new ArrayList<>());
 
         faturas.forEach(fatura -> { //1
-            if (!fatura.getCompras().isEmpty()) { //1
-                if (fatura.numeroDoCartao().equals(numeroCartao)) { //1
+            if (fatura.verificaComprasVazia(numeroCartao)) { //1
                     faturaEncontrada.setId(fatura.getId());
                     faturaEncontrada.setCompras(fatura.getCompras());
                     faturaEncontrada.setParcela(fatura.getParcela());
-                }
+            }
+
+            if (fatura.verificaRenegociacaoVazia(numeroCartao)) { //1
+                faturaEncontrada.setRenegociacao(fatura.getRenegociacao());
             }
         });
 
