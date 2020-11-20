@@ -3,6 +3,7 @@ package br.com.itau.fatura.controller;
 import br.com.itau.fatura.model.Fatura;
 import br.com.itau.fatura.model.Renegociacao;
 import br.com.itau.fatura.model.RenegociacaoRequest;
+import br.com.itau.fatura.service.RenegociacaoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
@@ -24,9 +25,12 @@ public class RenegociacaoController {
     private final Logger logger = LoggerFactory.getLogger(RenegociacaoController.class);
 
     private final EntityManager entityManager;
+//1
+    private final RenegociacaoService renegociacaoService;
 
-    public RenegociacaoController(EntityManager entityManager) {
+    public RenegociacaoController(EntityManager entityManager, RenegociacaoService renegociacaoService) {
         this.entityManager = entityManager;
+        this.renegociacaoService = renegociacaoService;
     }
 //1
     @PostMapping("/v1/cartoes/{idCartao}/faturas/{idFatura}/renegociacao")
@@ -47,6 +51,8 @@ public class RenegociacaoController {
             logger.error("Cartão não encontrado.");
             return ResponseEntity.notFound().build();
         }
+
+        renegociacaoService.notificaRenegociacao(numeroCartao, fatura, renegociacao);
 
         fatura.carregaRenegociacao(renegociacao);
 

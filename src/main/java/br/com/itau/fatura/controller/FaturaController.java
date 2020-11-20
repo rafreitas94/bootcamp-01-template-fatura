@@ -30,7 +30,7 @@ public class FaturaController {
 
         if (fatura.getId() == null) { //1
             logger.error("Fatura não encontrada.");
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.notFound().build();
         }
 
         logger.info("Fatura id={} atrelada ao cartão com final {} encontrada com sucesso!", fatura.getId(), numeroCartao.substring(24));

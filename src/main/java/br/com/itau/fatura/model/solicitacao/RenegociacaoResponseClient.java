@@ -1,34 +1,21 @@
 package br.com.itau.fatura.model.solicitacao;
 
-import java.math.BigDecimal;
+import javax.validation.constraints.NotBlank;
 
 public class RenegociacaoResponseClient {
 
-    private final String id;
-    private final Integer quantidade;
-    private final BigDecimal valor;
-    private final String dataDeCriacaoRenegociacao;
+    @NotBlank
+    private ResultadoParcelaClient resultado;
 
-    public RenegociacaoResponseClient(String id, Integer quantidade, BigDecimal valor, String dataDeCriacaoRenegociacao) {
-        this.id = id;
-        this.quantidade = quantidade;
-        this.valor = valor;
-        this.dataDeCriacaoRenegociacao = dataDeCriacaoRenegociacao;
+    @Deprecated
+    public RenegociacaoResponseClient() {
     }
 
-    public String getId() {
-        return id;
+    public RenegociacaoResponseClient(@NotBlank ResultadoParcelaClient resultado) {
+        this.resultado = resultado;
     }
 
-    public Integer getQuantidade() {
-        return quantidade;
-    }
-
-    public BigDecimal getValor() {
-        return valor;
-    }
-
-    public String getDataDeCriacaoRenegociacao() {
-        return dataDeCriacaoRenegociacao;
+    public ResultadoParcelaClient getResultado() {
+        return resultado;
     }
 }

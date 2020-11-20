@@ -38,7 +38,7 @@ public class LimiteController {
 
         if (fatura == null) { //1
             logger.error("Fatura não encontrada.");
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.notFound().build();
         }
 
         BigDecimal valorTotalUtilizado = limiteService.calculaValorTotalUtilizado(fatura.getCompras());
